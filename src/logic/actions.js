@@ -5,46 +5,47 @@ export const driftMining = {
     actions: [
         {
             stone: 2,
-            tiles: 'CT'
-        }
-    ]
+            tiles: 'CT',
+        },
+    ],
 };
 export const imitation = {
     name: 'Imitation',
     actions: [
         {
-            food: -2
-        }
-    ]
+            food: -2,
+            imitates: '',
+        },
+    ],
 };
 export const loggingAndExpedition = {
     name: 'Logging & Expedition',
     actions: [
         {
-            wood: 3
+            wood: 3,
         },
         {
-            expedition: 1
-        }
-    ]
+            expedition: 1,
+        },
+    ],
 };
 export const forestExploration = {
     name: 'Forest exploration',
     actions: [
         {
             wood: 2,
-            food: 2
-        }
-    ]
+            food: 2,
+        },
+    ],
 };
 export const excavation = {
     name: 'Excavation',
     actions: [
         {
             stone: 2,
-            tiles: 'CC/CT'
-        }
-    ]
+            tiles: 'CC/CT',
+        },
+    ],
 };
 export const growth = {
     name: 'Growth',
@@ -54,21 +55,21 @@ export const growth = {
             stone: 1,
             ore: 1,
             food: 1,
-            gold: 2
+            gold: 2,
         },
         {
-            dwarf: 1
-        }
-    ]
+            dwarf: 1,
+        },
+    ],
 };
 export const clearing = {
     name: 'Clearing',
     actions: [
         {
             wood: 2,
-            tiles: 'MF'
-        }
-    ]
+            tiles: 'MF',
+        },
+    ],
 };
 export const startingPlayer = {
     name: 'Starting player',
@@ -76,17 +77,17 @@ export const startingPlayer = {
         {
             food: 1,
             ruby: 1,
-            initialPlayer: true
-        }
-    ]
+            initialPlayer: true,
+        },
+    ],
 };
 export const oreMine = {
     name: 'Ore mine',
     actions: [
         {
-            ore: 3
-        }
-    ]
+            ore: 3,
+        },
+    ],
 };
 export const sustenance = {
     name: 'Sustenance',
@@ -94,43 +95,43 @@ export const sustenance = {
         {
             grain: 1,
             veggy: 0,
-            tiles: 'MF'
-        }
-    ]
+            tiles: 'MF',
+        },
+    ],
 };
 export const rubyMining = {
     name: 'Ruby mining',
     actions: [
         {
-            ruby: 1
-        }
-    ]
+            ruby: 1,
+        },
+    ],
 };
 export const housework = {
     name: 'Housework',
     actions: [
         {
-            dog: 1
-        }
-    ]
+            dog: 1,
+        },
+    ],
 };
 export const slashAndBurn = {
     name: 'Slash-and-burn',
     actions: [
         {
             tiles: 'MF',
-            sow: true
-        }
-    ]
+            sow: true,
+        },
+    ],
 };
 export const blacksmithing = {
     name: 'Blacksmithing',
     actions: [
         {
             forge: true, // 1-8 ore,
-            expedition: 3
-        }
-    ]
+            expedition: 3,
+        },
+    ],
 };
 export const oreMineConstruction = {
     name: 'Ore mine construction',
@@ -138,15 +139,15 @@ export const oreMineConstruction = {
         {
             ore: 3,
             tiles: 'DO',
-            expedition: 2
-        }
-    ]
+            expedition: 2,
+        },
+    ],
 };
 export const sheepFarming = {
     name: 'Sheep farming',
     actions: [
         {
-            sheep: 1
-        }
-    ]
+            sheep: 1,
+        },
+    ],
 };

@@ -1,47 +1,30 @@
-import * as actions from './actions.js'
-
-const createForest = () => [
-    ' x ', ' x ', ' x ', ' x ',
-    ' x ', '   ', '   ', ' b ',
-    ' x ', '   ', '   ', '   ',
-    ' x ', ' b ', '   ', '   ',
-    ' x ', '   ', ' f ', '  <',
-    ' x ', ' x ', ' x ', ' x ',
-];
-
-const createMountain = () => [
-    ' x ', ' x ', ' x ', ' x ',
-    '   ', '   ', ' ff', ' x ',
-    '   ', '   ', '   ', ' x ',
-    ' . ', '   ', '   ', ' x ',
-    ' I ', ' f ', '   ', ' x ',
-    ' x ', ' x ', ' x ', ' x ',
-];
-
-const createDwarf = (id, color) => ({
-    id,
-    color,
-    weapon: 0
-});
-
-const createPlayer = (id, color) => ({
-    id,
-    color,
-    dwarfs: [createDwarf(color), createDwarf(color)],
-    forest: createForest(),
-    mountain: createMountain()
-});
+import * as actions from './actions.js';
+import { createPlayers } from './players.js';
 
 const stage1Actions = [
-    actions.blacksmithing ,
-    actions.oreMineConstruction ,
+    actions.blacksmithing,
+    actions.oreMineConstruction,
     actions.sheepFarming,
-].sort(() => Math.random() >= 0.5 ? -1 : 1);
+].sort(() => (Math.random() >= 0.5 ? -1 : 1));
 
-const createRound = (number, initialPlayer) => ({
+export const findInitialPlayer = players =>
+    players.find(player => player.isInitial);
+
+const createOrder = players => {
+    const initialPlayer = findInitialPlayer(players);
+    const initialPlayerIndex = players.indexOf(initialPlayer);
+    return [
+        initialPlayerIndex,
+        (initialPlayerIndex + 1) % 4,
+        (initialPlayerIndex + 2) % 4,
+        (initialPlayerIndex + 3) % 4,
+    ].map(index => players[index].id);
+};
+
+const createRound = (number, players) => ({
     number,
-    initialPlayer,
-    turn: initialPlayer,
+    order: createOrder(players),
+    orderIndex: 0,
     spaces: [
         { dwarf: '', action: actions.driftMining },
         { dwarf: '', action: actions.imitation },
@@ -57,20 +40,27 @@ const createRound = (number, initialPlayer) => ({
         { dwarf: '', action: actions.housework },
         { dwarf: '', action: actions.slashAndBurn },
         // stage 1
-        { dwarf: '', action: stage1Actions.pop() }
-    ]
+        { dwarf: '', action: stage1Actions.pop() },
+    ],
 });
 
-const createPlayers = () => [
-    createPlayer('p1', 'red'),
-    createPlayer('p2', 'blue'),
-    createPlayer('p3', 'fuchsia'),
-    createPlayer('p4', 'green')
-];
-
+const players = createPlayers();
 export const createState = () => ({
-    players: createPlayers(),
+    players,
+    rounds: [createRound(1, players)],
+});
+
+export const endPlayerTurn = state => ({
+    ...state,
     rounds: [
-        createRound(1, 'p1'),
-    ]
+        ...state.rounds.map((round, index) => {
+            if (index === state.rounds.length - 1) {
+                return {
+                    ...round,
+                    orderIndex: (round.orderIndex + 1) % round.order.length,
+                };
+            }
+            return round;
+        }),
+    ],
 });
