@@ -1,6 +1,9 @@
 import { LitElement, html, css } from 'lit';
 import { createState, endPlayerTurn, findInitialPlayer } from './logic/game.js';
 
+const playerViewId = player => `${player.id}-view`;
+const playerTabId = player => `${player.id}-tab`;
+
 export class CafGame extends LitElement {
     static get is() {
         return 'caf-game';
@@ -67,21 +70,25 @@ export class CafGame extends LitElement {
         return this.state.rounds[this.state.rounds.length - 1];
     }
 
+    get playerIdWithTurn() {
+        return this.currentRound.order[this.currentRound.orderIndex];
+    }
+
     _playerTabTemplate(player) {
-        const playerIdWithTurn =
-            this.currentRound.order[this.currentRound.orderIndex];
+        const { id, color } = player;
+        const ariaSelected = player === this.viewPlayer ? 'true' : 'false';
+        const label = `${id}${this.playerIdWithTurn === player.id ? '*' : ''}`;
 
         return html`
             <caf-tab
-                data-player-id="${player.id}"
-                id="${`${player.id}-tab`}"
-                aria-selected="${player === this.viewPlayer ? 'true' : 'false'}"
-                aria-controls="${`${player.id}-view`}"
-                color="${player.color}"
+                data-player-id="${id}"
+                id="${playerTabId(player)}"
+                aria-selected="${ariaSelected}"
+                aria-controls="${playerViewId(player)}"
+                color="${color}"
                 @click=${this._onPlayerTabClick}
+                >${label}</caf-tab
             >
-                ${player.id}${playerIdWithTurn === player.id ? '*' : ''}
-            </caf-tab>
         `;
     }
 
@@ -101,6 +108,20 @@ export class CafGame extends LitElement {
         this.viewPlayer = this.players.find(
             player => player.id === currentTurnPlayerId
         );
+    }
+
+    _onePlayerViewTemplate(player) {
+        return html`
+            <caf-player-view
+                role="tabpanel"
+                id="${playerViewId(player)}"
+                labelledBy="${playerTabId(player)}"
+                .player=${player}
+                ?hidden=${player !== this.viewPlayer}
+                ?has-turn=${this.playerIdWithTurn === player.id}
+                @caf-player-view-end-turn=${this._onPlayerEndTurn}
+            ></caf-player-view>
+        `;
     }
 
     get playerViewsTemplate() {

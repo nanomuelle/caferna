@@ -1,4 +1,11 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, nothing } from 'lit';
+
+const goodTemplate = (label, amount) => html`
+    <tr>
+        <td>${label}</td>
+        <td>${amount}</td>
+    </tr>
+`;
 
 export class CafPlayerView extends LitElement {
     static get is() {
@@ -7,6 +14,7 @@ export class CafPlayerView extends LitElement {
 
     static get properties() {
         return {
+            hasTurn: { type: Boolean, reflect: true, attribute: 'has-turn' },
             player: { type: Object, reflect: false, attribute: false },
         };
     }
@@ -69,69 +77,8 @@ export class CafPlayerView extends LitElement {
         );
     }
 
-    render() {
-        if (!this.player) return html``;
-
+    get boardTemplate() {
         return html`
-            ${this.styleTemplate}
-            <div class="info">
-                <h3>${this.player.id}</h3>
-                <table>
-                    <tr>
-                        <td>Initial Player</td>
-                        <td>${this.player.isInitial ? 'Yes' : 'No'}</td>
-                    </tr>
-                    <tr>
-                        <td>Wood</td>
-                        <td>${this.player.wood}</td>
-                    </tr>
-                    <tr>
-                        <td>Stone</td>
-                        <td>${this.player.stone}</td>
-                    </tr>
-                    <tr>
-                        <td>Ore</td>
-                        <td>${this.player.ore}</td>
-                    </tr>
-                    <tr>
-                        <td>Ruby</td>
-                        <td>${this.player.ruby}</td>
-                    </tr>
-                    <tr>
-                        <td>Grain</td>
-                        <td>${this.player.grain}</td>
-                    </tr>
-                    <tr>
-                        <td>Veggy</td>
-                        <td>${this.player.veggy}</td>
-                    </tr>
-                    <tr>
-                        <td>Food</td>
-                        <td>${this.player.food}</td>
-                    </tr>
-                    <tr>
-                        <td>Gold</td>
-                        <td>${this.player.gold}</td>
-                    </tr>
-                    <tr>
-                        <td>Sheep</td>
-                        <td>${this.player.sheep}</td>
-                    </tr>
-                    <tr>
-                        <td>Boar</td>
-                        <td>${this.player.boar}</td>
-                    </tr>
-                    <tr>
-                        <td>Donkey</td>
-                        <td>${this.player.donkey}</td>
-                    </tr>
-                    <tr>
-                        <td>Cow</td>
-                        <td>${this.player.cow}</td>
-                    </tr>
-                </table>
-                <button @click=${this._onEndTurnClick}>End Turn</button>
-            </div>
             <div class="board">
                 <caf-board
                     class="forest"
@@ -142,6 +89,48 @@ export class CafPlayerView extends LitElement {
                     .cells=${this.player.mountain}
                 ></caf-board>
             </div>
+        `;
+    }
+
+    get endTurnTemplate() {
+        return html`<button @click=${this._onEndTurnClick}>End Turn</button>`;
+    }
+
+    get infoTemplate() {
+        const goods = [
+            'wood',
+            'stone',
+            'ore',
+            'ruby',
+            'grain',
+            'veggy',
+            'food',
+            'gold',
+            'sheep',
+            'boar',
+            'donkey',
+            'cow',
+        ];
+        return html`
+            <div class="info">
+                <h3>${this.player.id}${this.hasTurn ? '*' : ''}</h3>
+                <table>
+                    <tr>
+                        <td>Initial Player</td>
+                        <td>${this.player.isInitial ? 'Yes' : 'No'}</td>
+                    </tr>
+                    ${goods.map(name => goodTemplate(name, this.player[name]))}
+                </table>
+                ${this.hasTurn ? this.endTurnTemplate : nothing}
+            </div>
+        `;
+    }
+
+    render() {
+        if (!this.player) return html``;
+
+        return html`
+            ${this.styleTemplate} ${this.infoTemplate} ${this.boardTemplate}
         `;
     }
 }
