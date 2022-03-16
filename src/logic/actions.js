@@ -1,13 +1,14 @@
 // const goods
 // W	S	G	V	O	F	C	R	d	s	k	tiles
 export const driftMining = {
+    id: 'drift-mining',
     name: 'Drift mining',
     nexus: 'and / or',
     actions: [
         {
             initial: { stone: 2 },
             replenish: { stone: 2 },
-            current: { stone: 0 }
+            current: { stone: 0 },
         },
         {
             tiles: ['CT'],
@@ -15,6 +16,7 @@ export const driftMining = {
     ],
 };
 export const imitation = {
+    id: 'imitation',
     name: 'Imitation',
     actions: [
         {
@@ -23,14 +25,15 @@ export const imitation = {
         },
     ],
 };
-export const loggingAndExpedition = {
+export const logging = {
+    id: 'logging',
     name: 'Logging',
     nexus: 'and then / or',
     actions: [
         {
             initial: { wood: 3 },
             replenish: { wood: 3 },
-            current: { wood: 0 }
+            current: { wood: 0 },
         },
         {
             expedition: 1,
@@ -38,24 +41,26 @@ export const loggingAndExpedition = {
     ],
 };
 export const forestExploration = {
+    id: 'forest-exploration',
     name: 'Forest exploration',
     actions: [
         {
             initial: { wood: 2 },
             replenish: { wood: 1 },
             current: { wood: 0 },
-            always: { food: 2 }
+            always: { food: 2 },
         },
     ],
 };
 export const excavation = {
+    id: 'excavation',
     name: 'Excavation',
     nexus: 'and / or',
     actions: [
         {
             initial: { stone: 2 },
             replenish: { stone: 1 },
-            current: { stone: 0 }
+            current: { stone: 0 },
         },
         {
             tiles: ['CC', 'CT'],
@@ -63,6 +68,7 @@ export const excavation = {
     ],
 };
 export const growth = {
+    id: 'growth',
     name: 'Growth',
     nexus: 'or',
     actions: [
@@ -73,7 +79,7 @@ export const growth = {
                 ore: 1,
                 food: 1,
                 gold: 2,
-            }
+            },
         },
         {
             dwarf: 1,
@@ -81,20 +87,22 @@ export const growth = {
     ],
 };
 export const clearing = {
+    id: 'clearing',
     name: 'Clearing',
     nexus: 'and / or',
     actions: [
         {
             initial: { wood: 2 },
             replenish: { wood: 2 },
-            current: { wood: 0 }
+            current: { wood: 0 },
         },
         {
             tiles: ['MF'],
-        }
+        },
     ],
 };
 export const startingPlayer = {
+    id: 'starting-player',
     name: 'Starting player',
     actions: [
         {
@@ -102,28 +110,30 @@ export const startingPlayer = {
             replenish: { food: 1 },
             current: { food: 0 },
             always: { ruby: 1 },
-            initialPlayer: true
+            initialPlayer: true,
         },
     ],
 };
 export const oreMine = {
+    id: 'ore-mine',
     name: 'Ore mine',
     actions: [
         {
             initial: { ore: 3 },
             replenish: { ore: 2 },
-            forEachMineralMine: { ore: 2 }
+            forEachMineralMine: { ore: 2 },
         },
     ],
 };
 export const sustenance = {
+    id: 'sustenance',
     name: 'Sustenance',
     nexus: 'and / or',
     actions: [
         {
             initial: { grain: 1 },
             replenish: { veggy: 1 },
-            current: { grain: 0, veggy: 0 }
+            current: { grain: 0, veggy: 0 },
         },
         {
             tiles: ['MF'],
@@ -131,16 +141,18 @@ export const sustenance = {
     ],
 };
 export const rubyMining = {
+    id: 'ruby-mining',
     name: 'Ruby mining',
     actions: [
         {
             initial: { ruby: 1 },
             replenish: { ruby: 1 },
-            havingRubyMine: { ruby: 1 }
+            havingRubyMine: { ruby: 1 },
         },
     ],
 };
 export const housework = {
+    id: 'housework',
     name: 'Housework',
     nexus: 'and / or',
     actions: [
@@ -148,11 +160,12 @@ export const housework = {
             always: { dog: 1 },
         },
         {
-            furnishCavern: true
-        }
+            furnishCavern: true,
+        },
     ],
 };
 export const slashAndBurn = {
+    id: 'slash-and-burn',
     name: 'Slash-and-burn',
     nexus: 'and then / or',
     actions: [
@@ -160,11 +173,12 @@ export const slashAndBurn = {
             tiles: ['MF'],
         },
         {
-            sow: true
-        }
+            sow: true,
+        },
     ],
 };
 export const blacksmithing = {
+    id: 'blacksmithing',
     name: 'Blacksmithing',
     nexus: 'and then / or',
     actions: [
@@ -177,31 +191,47 @@ export const blacksmithing = {
     ],
 };
 export const oreMineConstruction = {
+    id: 'ore-mine-construction',
     name: 'Ore mine construction',
     nexus: 'and then / or',
     actions: [
         {
             tiles: ['DO'],
-            always: { ore: 3 }
+            always: { ore: 3 },
         },
         {
             expedition: 2,
-        }
+        },
     ],
 };
 export const sheepFarming = {
+    id: 'sheep-farming',
     name: 'Sheep farming',
     nexus: 'and then / or',
     actions: [
         {
             littleFence: { wood: -2 },
             bigFence: { wood: -4 },
-            stable: { stone: -1 }
+            stable: { stone: -1 },
         },
         {
             initial: { sheep: 1 },
             replenish: { sheep: 1 },
-            current: { sheep: 0 }
+            current: { sheep: 0 },
+        },
+    ],
+};
+
+export const haveChildren = {
+    id: 'have-children',
+    name: 'Have children',
+    nexus: 'or',
+    actions: [
+        {
+            dwarf: 1,
+        },
+        {
+            furnishDwelling: true,
         },
     ],
 };

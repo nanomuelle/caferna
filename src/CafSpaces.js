@@ -45,47 +45,38 @@ export class CafSpaces extends LitElement {
                 border-radius: 0.4rem;
                 flex-grow: 1;
                 _background-color: bisque;
-                background: radial-gradient(bisque, #f69d3c );
+                background: radial-gradient(bisque, #f69d3c);
             }
         `;
     }
 
     static actionTemplate(space) {
-        return html`
-            <div class="space" style="flex-grow: ${ space.flexGrow }">
-                <h4>${ space.action.name }</h4>
-                <span>${ space.dwarf }</span>
-            </div>
-        `;
+        return html`<caf-space .space=${space}></caf-space>`;
     }
 
     render() {
         return html`
-            ${ this.styleTemplate }
+            ${this.styleTemplate}
             <div class="spaces">
                 <div class="col">
-                    ${ this.spaces
+                    ${this.spaces
                         .filter(space => space.col === 1)
-                        .map(this.constructor.actionTemplate) 
-                    }
+                        .map(this.constructor.actionTemplate)}
                 </div>
                 <div class="col">
-                    ${ this.spaces
+                    ${this.spaces
                         .filter(space => space.col === 2)
-                        .map(this.constructor.actionTemplate) 
-                    }
+                        .map(this.constructor.actionTemplate)}
                 </div>
                 <div class="col">
-                    ${ this.spaces
+                    ${this.spaces
                         .filter(space => space.col === 3)
-                        .map(this.constructor.actionTemplate) 
-                    }
+                        .map(this.constructor.actionTemplate)}
                 </div>
                 <div class="col">
-                    ${ this.spaces
+                    ${this.spaces
                         .filter(space => space.col === 4)
-                        .map(this.constructor.actionTemplate) 
-                    }
+                        .map(this.constructor.actionTemplate)}
                 </div>
             </div>
         `;
