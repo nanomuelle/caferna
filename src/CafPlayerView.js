@@ -33,7 +33,7 @@ export class CafPlayerView extends LitElement {
             }
 
             .info {
-                width: 300px;
+                min-width: 150px;
             }
 
             .board {
@@ -96,6 +96,23 @@ export class CafPlayerView extends LitElement {
         return html`<button @click=${this._onEndTurnClick}>End Turn</button>`;
     }
 
+    get dwarfsTemplate() {
+        const name = `${ this.player.id }-dwarf`;
+        return html`
+            ${ this.player.dwarfs.map(
+                dwarf => html`
+                    <label for="${ dwarf.id }">${ dwarf.id }</label>
+                    <input 
+                        type="radio" 
+                        name="${ name }"
+                        id="${ dwarf.id }"
+                        .value="${ dwarf.id }"
+                    >
+                `
+            )}
+        `;
+    }
+
     get infoTemplate() {
         const goods = [
             'wood',
@@ -113,15 +130,15 @@ export class CafPlayerView extends LitElement {
         ];
         return html`
             <div class="info">
-                <h3>${this.player.id}${this.hasTurn ? '*' : ''}</h3>
+                ${ this.dwarfsTemplate }
                 <table>
                     <tr>
                         <td>Initial Player</td>
-                        <td>${this.player.isInitial ? 'Yes' : 'No'}</td>
+                        <td>${ this.player.isInitial ? 'Yes' : 'No' }</td>
                     </tr>
                     ${goods.map(name => goodTemplate(name, this.player[name]))}
                 </table>
-                ${this.hasTurn ? this.endTurnTemplate : nothing}
+                ${ this.hasTurn ? this.endTurnTemplate : nothing }
             </div>
         `;
     }
@@ -130,7 +147,9 @@ export class CafPlayerView extends LitElement {
         if (!this.player) return html``;
 
         return html`
-            ${this.styleTemplate} ${this.infoTemplate} ${this.boardTemplate}
+            ${ this.styleTemplate }
+            ${ this.infoTemplate }
+            ${ this.boardTemplate }
         `;
     }
 }

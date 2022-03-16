@@ -26,21 +26,25 @@ const createRound = (number, players) => ({
     order: createOrder(players),
     orderIndex: 0,
     spaces: [
-        { dwarf: '', action: actions.driftMining },
-        { dwarf: '', action: actions.imitation },
-        { dwarf: '', action: actions.loggingAndExpedition },
-        { dwarf: '', action: actions.forestExploration },
-        { dwarf: '', action: actions.excavation },
-        { dwarf: '', action: actions.growth },
-        { dwarf: '', action: actions.clearing },
-        { dwarf: '', action: actions.startingPlayer },
-        { dwarf: '', action: actions.oreMine },
-        { dwarf: '', action: actions.sustenance },
-        { dwarf: '', action: actions.rubyMining },
-        { dwarf: '', action: actions.housework },
-        { dwarf: '', action: actions.slashAndBurn },
+        { col: 1, dwarf: '', action: actions.driftMining, flexGros: 1 },
+        { col: 1, dwarf: '', action: actions.imitation, flexGrow: 0.5 },
+        { col: 1, dwarf: '', action: actions.loggingAndExpedition, flexGrow: 0.8 },
+        { col: 1, dwarf: '', action: actions.forestExploration, flexGrow: 0.7 },
+
+        { col: 2, dwarf: '', action: actions.excavation, flexGrow: 1 },
+        { col: 2, dwarf: '', action: actions.growth, flexGrow: 1 },
+        { col: 2, dwarf: '', action: actions.clearing, flexGrow: 1 },
+        
+        { col: 3, dwarf: '', action: actions.startingPlayer, flexGrow: 1 },
+        { col: 3, dwarf: '', action: actions.oreMine, flexGrow: 1 },
+        { col: 3, dwarf: '', action: actions.sustenance, flexGrow: 1 },
+        
+        { col: 4, dwarf: '', action: actions.rubyMining, flexGrow: 1 },
+        { col: 4, dwarf: '', action: actions.housework, flexGrow: 1 },
+        { col: 4, dwarf: '', action: actions.slashAndBurn, flexGrow: 1 },
+
         // stage 1
-        { dwarf: '', action: stage1Actions.pop() },
+        { col: 5, dwarf: '', action: stage1Actions.pop(), flexGrow: 1 },
     ],
 });
 

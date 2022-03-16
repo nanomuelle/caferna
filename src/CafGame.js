@@ -77,7 +77,7 @@ export class CafGame extends LitElement {
     _playerTabTemplate(player) {
         const { id, color } = player;
         const ariaSelected = player === this.viewPlayer ? 'true' : 'false';
-        const label = `${id}${this.playerIdWithTurn === player.id ? '*' : ''}`;
+        const label = `${ id }${ this.playerIdWithTurn === player.id ? '*' : '' }`;
 
         return html`
             <caf-tab
@@ -114,46 +114,39 @@ export class CafGame extends LitElement {
         return html`
             <caf-player-view
                 role="tabpanel"
-                id="${playerViewId(player)}"
-                labelledBy="${playerTabId(player)}"
-                .player=${player}
-                ?hidden=${player !== this.viewPlayer}
-                ?has-turn=${this.playerIdWithTurn === player.id}
-                @caf-player-view-end-turn=${this._onPlayerEndTurn}
+                id="${ playerViewId(player) }"
+                labelledBy="${ playerTabId(player) }"
+                .player=${ player }
+                ?hidden=${ player !== this.viewPlayer }
+                ?has-turn=${ this.playerIdWithTurn === player.id }
+                @caf-player-view-end-turn=${ this._onPlayerEndTurn }
             ></caf-player-view>
         `;
     }
 
     get playerViewsTemplate() {
-        return html`
-            ${this.players.map(
-                player => html`
-                    <caf-player-view
-                        role="tabpanel"
-                        id="${`${player.id}-view`}"
-                        labelledBy="${`${player.id}-tab`}"
-                        .player=${player}
-                        ?hidden=${player !== this.viewPlayer}
-                        @caf-player-view-end-turn=${this._onPlayerEndTurn}
-                    ></caf-player-view>
-                `
-            )}
-        `;
+        return html`${ 
+            this.players.map(
+                player => this._onePlayerViewTemplate(player)
+            )
+        }`;
     }
 
     render() {
         return html`
             <main>
-                ${this.playerTablistTemplate} ${this.playerViewsTemplate}
+                ${ this.playerTablistTemplate }
+                ${ this.playerViewsTemplate }
+                <caf-spaces .spaces=${ this.currentRound.spaces }></caf-spaces>
             </main>
 
             <p class="app-footer">
-                🚽 Made with love by
+                🌀 Made with love by
                 <a
                     target="_blank"
                     rel="noopener noreferrer"
                     href="https://github.com/open-wc"
-                    >open-wc</a
+                    >F.G.Huerta</a
                 >.
             </p>
         `;
