@@ -152,87 +152,87 @@
 //         },
 //     ],
 // };
-export const housework = {
-    id: 'housework',
-    name: 'Housework',
-    nexus: 'and / or',
-    actions: [
-        {
-            always: { dog: 1 },
-        },
-        {
-            furnishCavern: true,
-        },
-    ],
-};
-export const slashAndBurn = {
-    id: 'slash-and-burn',
-    name: 'Slash-and-burn',
-    nexus: 'and then / or',
-    actions: [
-        {
-            tiles: ['MF'],
-        },
-        {
-            sow: true,
-        },
-    ],
-};
-export const blacksmithing = {
-    id: 'blacksmithing',
-    name: 'Blacksmithing',
-    nexus: 'and then / or',
-    actions: [
-        {
-            forge1to8: true, // 1-8 ore,
-        },
-        {
-            expedition: 3,
-        },
-    ],
-};
-export const oreMineConstruction = {
-    id: 'ore-mine-construction',
-    name: 'Ore mine construction',
-    nexus: 'and then / or',
-    actions: [
-        {
-            tiles: ['DO'],
-            always: { ore: 3 },
-        },
-        {
-            expedition: 2,
-        },
-    ],
-};
-export const sheepFarming = {
-    id: 'sheep-farming',
-    name: 'Sheep farming',
-    nexus: 'and then / or',
-    actions: [
-        {
-            littleFence: { wood: -2 },
-            bigFence: { wood: -4 },
-            stable: { stone: -1 },
-        },
-        {
-            initial: { sheep: 1 },
-            replenish: { sheep: 1 },
-            current: { sheep: 0 },
-        },
-    ],
-};
+// export const housework = {
+//     id: 'housework',
+//     name: 'Housework',
+//     nexus: 'and / or',
+//     actions: [
+//         {
+//             always: { dog: 1 },
+//         },
+//         {
+//             furnishCavern: true,
+//         },
+//     ],
+// };
+// export const slashAndBurn = {
+//     id: 'slash-and-burn',
+//     name: 'Slash-and-burn',
+//     nexus: 'and then / or',
+//     actions: [
+//         {
+//             tiles: ['MF'],
+//         },
+//         {
+//             sow: true,
+//         },
+//     ],
+// };
+// export const blacksmithing = {
+//     id: 'blacksmithing',
+//     name: 'Blacksmithing',
+//     nexus: 'and then / or',
+//     actions: [
+//         {
+//             forge1to8: true, // 1-8 ore,
+//         },
+//         {
+//             expedition: 3,
+//         },
+//     ],
+// };
+// export const oreMineConstruction = {
+//     id: 'ore-mine-construction',
+//     name: 'Ore mine construction',
+//     nexus: 'and then / or',
+//     actions: [
+//         {
+//             tiles: ['DO'],
+//             always: { ore: 3 },
+//         },
+//         {
+//             expedition: 2,
+//         },
+//     ],
+// };
+// export const sheepFarming = {
+//     id: 'sheep-farming',
+//     name: 'Sheep farming',
+//     nexus: 'and then / or',
+//     actions: [
+//         {
+//             littleFence: { wood: -2 },
+//             bigFence: { wood: -4 },
+//             stable: { stone: -1 },
+//         },
+//         {
+//             initial: { sheep: 1 },
+//             replenish: { sheep: 1 },
+//             current: { sheep: 0 },
+//         },
+//     ],
+// };
 
-export const haveChildren = {
-    id: 'have-children',
-    name: 'Have children',
-    nexus: 'or',
-    actions: [
-        {
-            dwarf: 1,
-        },
-        {
-            furnishDwelling: true,
-        },
-    ],
-};
+// export const haveChildren = {
+//     id: 'have-children',
+//     name: 'Have children',
+//     nexus: 'or',
+//     actions: [
+//         {
+//             dwarf: 1,
+//         },
+//         {
+//             furnishDwelling: true,
+//         },
+//     ],
+// };
