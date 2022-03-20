@@ -7,14 +7,10 @@ export class Player {
     constructor(game, id, color, food, isInitial) {
         this.game = game;
 
+        this._isInitialPlayer = false;
+
         this.id = id;
         this.color = color;
-
-        this.dwarfs = [new Dwarf(this), new Dwarf(this)];
-
-        this.forest = new Forest(this);
-        this.mountain = new Mountain(this);
-        this._isInitialPlayer = isInitial;
 
         this.goods = {
             [GOODS.WOOD]: 0,
@@ -48,6 +44,16 @@ export class Player {
 
             [GOODS.NEW_BORN]: 0,
         };
+
+        this.dwarfs = [
+            new Dwarf(this, `dwarf-${ this.id }-1`), 
+            new Dwarf(this, `dwarf-${ this.id }-2`)
+        ];
+
+        this.forest = new Forest(this);
+        this.mountain = new Mountain(this);
+
+        this._isInitialPlayer = isInitial;
     }
 
     addGood({ name, stock }) {

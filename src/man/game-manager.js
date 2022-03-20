@@ -70,11 +70,12 @@ export class GameManager {
 
         this.spaceManager.init();
 
-        this.roundNumber = 0;
         this.phases = ['discover', 'replenish', 'workday', 'home', 'harvest'];
         this.phaseIndex = 0;
 
+        this.roundNumber = 0;
         this.playerTurnIndex = 0;
+        this.ready = true;
     }
 
     get initialPlayer() {

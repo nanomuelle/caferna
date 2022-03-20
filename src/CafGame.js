@@ -1,5 +1,7 @@
 import { LitElement, html, css } from 'lit';
-import { createState, endPlayerTurn, findInitialPlayer } from './logic/game.js';
+// import { createState, endPlayerTurn, findInitialPlayer } from './logic/game.js';
+
+import { GameManager } from './man/game-manager.js';
 
 const playerViewId = player => `${player.id}-view`;
 const playerTabId = player => `${player.id}-tab`;
@@ -12,8 +14,11 @@ export class CafGame extends LitElement {
     static get properties() {
         return {
             title: { type: String },
-            state: { type: Object },
             viewPlayer: { type: Object },
+
+            game: { type: Object },
+            roundNumber: { type: Number },
+            selectedPlayerIndex: { type: Number }
         };
     }
 
@@ -52,27 +57,43 @@ export class CafGame extends LitElement {
 
     constructor() {
         super();
-        this.title = 'My app';
-        this.state = createState();
-        this.viewPlayer = findInitialPlayer(this.players);
+        // this.title = 'My app';
+        // this.state = createState();
+        // this.viewPlayer = findInitialPlayer(this.players);
+
+        this.game = undefined;
+        this.roundNumber = undefined;
+        this.selectedPlayerIndex = undefined;
     }
 
-    get players() {
-        return this.state.players;
+    firstUpdated() {
+        this.game = new GameManager();
+        this.game.init();
+
+        this.roundNumber = this.game.roundNumber;
+        // this.selectedPlayerIndex = game.playerTurnIndex;
+    
+        this.game.discoverPhase();
+        this.game.replenishPhase();
+        this.requestUpdate();
     }
+    
+    // get players() {
+    //     return this.state.players;
+    // }
 
     _onPlayerTabClick(event) {
         const { playerId } = event.target.dataset;
         this.viewPlayer = this.players.find(player => player.id === playerId);
     }
 
-    get currentRound() {
-        return this.state.rounds[this.state.rounds.length - 1];
-    }
+    // get currentRound() {
+    //     return this.state.rounds[this.state.rounds.length - 1];
+    // }
 
-    get playerIdWithTurn() {
-        return this.currentRound.order[this.currentRound.orderIndex];
-    }
+    // get playerIdWithTurn() {
+    //     return this.currentRound.order[this.currentRound.orderIndex];
+    // }
 
     _playerTabTemplate(player) {
         const { id, color } = player;
@@ -87,28 +108,28 @@ export class CafGame extends LitElement {
                 aria-controls="${playerViewId(player)}"
                 color="${color}"
                 @click=${this._onPlayerTabClick}
-                >${label}</caf-tab
+                >${ label }</caf-tab
             >
         `;
     }
 
     get playerTablistTemplate() {
         return html`
-            <h3>Round ${this.currentRound.number}</h3>
+            <h3>Round ${ this.roundNumber }</h3>
             <div role="tablist">
-                ${this.players.map(this._playerTabTemplate.bind(this))}
+                ${this.game.players.map(this._playerTabTemplate.bind(this))}
             </div>
         `;
     }
 
-    _onPlayerEndTurn() {
-        this.state = endPlayerTurn(this.state);
-        const currentTurnPlayerId =
-            this.currentRound.order[this.currentRound.orderIndex];
-        this.viewPlayer = this.players.find(
-            player => player.id === currentTurnPlayerId
-        );
-    }
+    // _onPlayerEndTurn() {
+    //     this.state = endPlayerTurn(this.state);
+    //     const currentTurnPlayerId =
+    //         this.currentRound.order[this.currentRound.orderIndex];
+    //     this.viewPlayer = this.players.find(
+    //         player => player.id === currentTurnPlayerId
+    //     );
+    // }
 
     _onePlayerViewTemplate(player) {
         return html`
@@ -133,11 +154,14 @@ export class CafGame extends LitElement {
     }
 
     render() {
+        if (!this.game?.ready) {
+            return html`<h4>loading...</h4>`;
+        }
         return html`
             <main>
                 ${ this.playerTablistTemplate }
-                ${ this.playerViewsTemplate }
-                <caf-spaces .spaces=${ this.currentRound.spaces }></caf-spaces>
+                ${ 'this.playerViewsTemplate' }
+                <caf-spaces .game=${ this.game }></caf-spaces>
             </main>
 
             <p class="app-footer">

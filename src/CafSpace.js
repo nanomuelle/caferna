@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, nothing } from 'lit';
 
 export class CafSpace extends LitElement {
     static get is() {
@@ -17,8 +17,15 @@ export class CafSpace extends LitElement {
             :host {
                 border: 6px solid whitesmoke;
                 border-radius: 0.4rem;
-                flex-grow: 1;
+            }
+            div {
+                height: 100%;
+            }
+            .space {
                 background: radial-gradient(bisque, #f69d3c);
+            }
+            .empty {
+                background: radial-gradient(lightgray, gray );
             }
             label {
                 display: flex;
@@ -43,33 +50,31 @@ export class CafSpace extends LitElement {
 
     static actionTemplate(space) {
         return html`
-            <div class="space" style="flex-grow: ${space.flexGrow}">
-                <h4>${space.action.name}</h4>
-                <span>${space.dwarf}</span>
+            <div class="space">
+                <h4>${ space.name }</h4>
+                <span>${ space.dwarf }</span>
             </div>
         `;
     }
 
-    get styleTemplate() {
-        return html`
-            <style>
-                :host {
-                    flex-grow: ${this.flexGrow};
-                }
-            </style>
-        `;
-    }
-
     render() {
+        if (!this.space) {
+            return html`
+                <div class="empty"></div>
+            `;
+        }
         return html`
-            ${this.styleTemplate}
-            <label
-                >${this.space.action.name}<input
-                    type="radio"
-                    name="space"
-                    id="${this.space.action.id}"
-            /></label>
-            <span>${this.space.dwarf}</span>
+            <div class="space">
+                <label>
+                    ${this.space.name}
+                    <input
+                        type="radio"
+                        name="space"
+                        id="${this.space.id}"
+                    />
+                </label>
+                <span>${this.space.dwarf}</span>
+            </div>
         `;
     }
 }

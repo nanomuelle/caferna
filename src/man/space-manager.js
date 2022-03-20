@@ -51,7 +51,7 @@ export class SpaceManager {
             [...STAGE_2].sort(randomComparer),
             [...STAGE_3].sort(randomComparer),
             [...STAGE_4].sort(randomComparer),
-        ].flatMap();
+        ].flatMap(item => item);
     }
 
     addNext() {

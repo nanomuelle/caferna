@@ -1,7 +1,8 @@
 export class Dwarf {
-    constructor(player) {
+    constructor(player, id) {
         this.player = player;
-        this.id = `dwarf-${player.id}-${player.dwarfs.length}`;
+        
+        this.id = id;
         this.weapon = 0;
         this.isNewBorn = false;
     }

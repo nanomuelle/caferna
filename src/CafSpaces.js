@@ -7,7 +7,8 @@ export class CafSpaces extends LitElement {
 
     static get properties() {
         return {
-            spaces: { type: Object },
+            game: { type: Object },
+            spaces: { type: Array },
         };
     }
 
@@ -50,8 +51,19 @@ export class CafSpaces extends LitElement {
         `;
     }
 
-    static actionTemplate(space) {
-        return html`<caf-space .space=${space}></caf-space>`;
+    static actionTemplate(space, flexGrow = 1) {
+        return html`<caf-space .space=${ space } style="flex-grow: ${ flexGrow }"></caf-space>`;
+    }
+
+    constructor() {
+        super();
+        this.spaces = [];
+    }
+
+    updated(changedProperties) {
+        if (changedProperties.has('game')) {
+            this.spaces = [...this.game.spaceManager.spaces];
+        }
     }
 
     render() {
@@ -59,24 +71,40 @@ export class CafSpaces extends LitElement {
             ${this.styleTemplate}
             <div class="spaces">
                 <div class="col">
-                    ${this.spaces
-                        .filter(space => space.col === 1)
-                        .map(this.constructor.actionTemplate)}
+                    ${ this.constructor.actionTemplate(this.spaces[0], 1) }
+                    ${ this.constructor.actionTemplate(this.spaces[1], 0.4) }
+                    ${ this.constructor.actionTemplate(this.spaces[2], 0.9) }
+                    ${ this.constructor.actionTemplate(this.spaces[3], 0.7) }
                 </div>
                 <div class="col">
-                    ${this.spaces
-                        .filter(space => space.col === 2)
-                        .map(this.constructor.actionTemplate)}
+                    ${ this.constructor.actionTemplate(this.spaces[4], 1) }
+                    ${ this.constructor.actionTemplate(this.spaces[5], 1) }
+                    ${ this.constructor.actionTemplate(this.spaces[6], 1) }
                 </div>
                 <div class="col">
-                    ${this.spaces
-                        .filter(space => space.col === 3)
-                        .map(this.constructor.actionTemplate)}
+                    ${ this.constructor.actionTemplate(this.spaces[7], 1) }
+                    ${ this.constructor.actionTemplate(this.spaces[8], 1) }
+                    ${ this.constructor.actionTemplate(this.spaces[9], 1) }
                 </div>
                 <div class="col">
-                    ${this.spaces
-                        .filter(space => space.col === 4)
-                        .map(this.constructor.actionTemplate)}
+                    ${ this.constructor.actionTemplate(this.spaces[10], 1) }
+                    ${ this.constructor.actionTemplate(this.spaces[11], 1) }
+                    ${ this.constructor.actionTemplate(this.spaces[12], 1) }
+                </div>
+                <div class="col">
+                    ${ this.constructor.actionTemplate(this.spaces[13], 1) }
+                    ${ this.constructor.actionTemplate(this.spaces[14], 1) }
+                    ${ this.constructor.actionTemplate(this.spaces[15], 1) }
+                </div>
+                <div class="col">
+                    ${ this.constructor.actionTemplate(this.spaces[16], 1) }
+                    ${ this.constructor.actionTemplate(this.spaces[17], 1) }
+                    ${ this.constructor.actionTemplate(this.spaces[18], 1) }
+                </div>
+                <div class="col">
+                    ${ this.constructor.actionTemplate(this.spaces[19], 1) }
+                    ${ this.constructor.actionTemplate(this.spaces[20], 1) }
+                    ${ this.constructor.actionTemplate(this.spaces[21], 1) }
                 </div>
             </div>
         `;
